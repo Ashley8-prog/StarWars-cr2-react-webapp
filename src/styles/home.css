@@ -1,0 +1,40 @@
+.link{
+    background-color: white;
+    color: rgb(67, 157, 241);
+    border: 1px solid rgb(67, 157, 241);
+}
+.singleim{
+    width: min-content;
+}
+
+.like{
+    margin-left: 80px;
+    background-color: white;
+    border: 1px solid rgb(202, 202, 22);
+}
+
+.main{
+    width: 130px;
+    height: 100%;
+   padding: 0px;
+   margin: 25px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.star{
+    width: 100px;
+    height: 100px;
+}
+
+.rojo{
+   font-size: 30px;
+    margin-left: 30px;
+    margin-top: 40px;
+    color:#DD3F50;
+}
+
+.cora{
+    
+   color: rgb(202, 202, 22);;
+}

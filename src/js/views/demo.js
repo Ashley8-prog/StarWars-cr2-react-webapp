@@ -16,7 +16,7 @@ export const Demo = () => {
 						<li
 							key={index}
 							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
+							style={{ background: item.background}}>
 							<Link to={"/single/" + index}>
 								<span>Link to: {item.title}</span>
 							</Link>

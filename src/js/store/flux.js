@@ -1,7 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
-		store: {//aquí almacenamos todos los estados gloables
-			//demo es un estado global
+		store: {
 			demo: [
 				{
 					title: "FIRST",
@@ -12,15 +11,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					title: "SECOND",
 					background: "white",
 					initial: "white"
-				},
-				{
-					title: "THIRD",
-					background: "white",
-					initial: "white"
 				}
 			],
-			persona: { nombre: "Adrinana" },
-			favorites: []
+			charactersStarWars: [
+
+			],
+			planetsStarWars: [
+
+			],
+			vehiclesStarWars: [
+
+			],
+			favoriteItems: [
+
+			]
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -44,58 +48,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 
 				//reset the global store
-				//setStore({ demo: demo });
-
-				//lo correcto es:
-				setStore({ ...store, demo: demo })
+				setStore({ demo: demo });
 			},
-			setPersona: () => {
-				let store = getStore() //obtenemos los estados contenidos en store
-				let actions = getActions()
-				let alexis = actions.loadSomeData()
-				let antonio = { nombre: "Antonio", edad: 34 }
-				setStore({ ...store, persona: antonio }) //spread, mantener los elementos viejos y cambiar el que nos interesa.				
+			//function to update myCharacters
+			fetchCharactersStarWars: () => {
+				fetch('https://swapi.dev/api/people')
+					.then(response => response.json())
+					//SetStore se utiliza para guardar la data en los arrays de store.
+					.then(data => {
+						console.log(data);
+						setStore({ charactersStarWars: data.results })
+					})
+					.catch(err => err);
 			},
-			setFavorites: () => {
-				let store = getStore() //obtenemos los estados contenidos en store
-				let actions = getActions()
-				//let antonio = { nombre: "Antonio", edad: 34 }
-				//setStore({ ...store, persona: antonio }) //spread, mantener los elementos viejos y cambiar el que nos interesa.				
+			fetchPlanetsStarWars: () => {
+				fetch('https://swapi.dev/api/planets')
+					.then(response => response.json())
+					//SetStore se utiliza para guardar la data en los arrays de store.
+					.then(data => {
+						console.log(data);
+						setStore({ planetsStarWars: data.results })
+					})
+					.catch(err => err);
 			},
-			fetchGenerico: async (path, metodo = "GET", data = null) => {
-				const BASE_URL = process.env.BASE_URL
-				let url = BASE_URL + path
+			fetchVehiclesStarWars: () => {
+				fetch('https://swapi.dev/api/vehicles')
+					.then(response => response.json())
+					//SetStore se utiliza para guardar la data en los arrays de store.
+					.then(data => {
+						console.log(data);
+						setStore({ vehiclesStarWars: data.results })
+					})
+					.catch(err => err);
+			},
+			addFavoriteItems: (newItem) => {
+				const store = getStore();
+				setStore({ favoriteItems: [newItem, ...store.favoriteItems] })
+				localStorage.setItem("favoriteItems", JSON.stringify(store.favoriteItems));
+			},
+			deleteFavoriteItems: (position) => {
+				const store = getStore();
+				let newFavoriteList = store.favoriteItems.filter((favorite, index) => index != position)
+				setStore({ favoriteItems: newFavoriteList })
 
-				let obj = {
-					method: metodo,
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify(data)
-				}
-
-				if (metodo == "GET") {
-					obj = {
-						method: metodo,
-						headers: {
-							"Content-Type": "application/json"
-						}
-					}
-				}
-
-				let response = await fetch(url, obj)
-
-				//response.ok == True significa que la respuesta tiene status 200-299
-				if (response.ok) {
-					let responseObj = await response.json() //transformación de la promesa en json a objeto en javascript
-					return responseObj
-
-				} else {
-					let responseObj = await response.json()
-					alert("Hubo un error en la petición: " + response.statusText)
-					return responseObj
-				}
 			}
+
 		}
 	};
 };

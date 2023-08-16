@@ -1,0 +1,37 @@
+.main-container{
+    max-height: 700px;
+    display: flex;
+    overflow-x:scroll;
+}
+.cara{
+    margin-top: 25px;
+    margin-left: 15px;
+    text-align: start;
+}
+
+.main-container .card{
+    min-width: 250px;
+    line-height: 20px;
+    text-align: center;
+    background-color: aliceblue;
+    margin-right: 5px;
+}
+
+.buttons-group{
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    margin-right: 5px;
+}
+
+
+.card img{
+    min-height: 350px;
+}
+
+.card-body{
+    min-height: 200px;
+}
+
